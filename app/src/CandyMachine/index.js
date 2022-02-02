@@ -217,6 +217,7 @@ const CandyMachine = ({ walletAddress }) => {
   };
 
   const mintToken = async () => {
+    setIsMinting(true);
     const mint = web3.Keypair.generate();
 
     const userTokenAccountAddress = (
@@ -426,6 +427,7 @@ const CandyMachine = ({ walletAddress }) => {
     );
   
     try {
+      setIsMinting(false);
       return (
         await sendTransactions(
           candyMachine.program.provider.connection,
@@ -436,6 +438,7 @@ const CandyMachine = ({ walletAddress }) => {
       ).txs.map(t => t.txid);
     } catch (e) {
       console.log(e);
+      setIsMinting(false);
     }
     return [];
   };
@@ -458,6 +461,8 @@ const CandyMachine = ({ walletAddress }) => {
     return provider;
   };
   const getCandyMachineState = async () => {
+    setIsLoadingMints(true);
+
     const provider = getProvider();
     
     // Get metadata about your deployed candy machine program
@@ -539,6 +544,7 @@ const CandyMachine = ({ walletAddress }) => {
       goLiveDateTimeString,
       presale,
     });
+    setIsLoadingMints(false);
   };
   const renderDropTimer = () => {
     // Get the current date and dropDate in a JavaScript Date object
