@@ -562,10 +562,14 @@ const CandyMachine = ({ walletAddress }) => {
     return <p>{`Drop Date: ${candyMachine.state.goLiveDateTimeString}`}</p>;
   };
   const renderMintedItems = () => {
-    return <div className='gif-grid'> {
+    return <div className='gif-grid'> 
+    {
       (mints.map(item => {
         return <div className="gif-item" key={item.name}>
             <img src={item.imageLink} alt={item.name} />
+            <p className="mint-text">
+              #{item.name}
+            </p>
             </div>
       }))
     }
